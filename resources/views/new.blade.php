@@ -1,33 +1,125 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!---------打刻ページ/パーツ----1------->
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+<style>
+  .header {
+    background: #FFFFFF;
+  }
 
-<body>
-  <h1>スタンプ</h1>
-  <x-app-layout>
-    <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('Dashboard') }}
-      </h2>
-    </x-slot>
+  .header-ttl {
+    padding-left: 20px;
+  }
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-          <div class="p-6 bg-white border-b border-gray-200">
-            You're logged in!
-          </div>
-        </div>
-      </div>
+  .header-nav {
+    display: block;
+  }
+
+  .header-nav_list {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+  }
+
+  .header-nav_item {
+    padding-right: 15px;
+  }
+
+  .main {
+    background: #EEEEEE;
+    height: 500px;
+    font-size: 20px;
+  }
+
+  .main-item {
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-item_second {
+    display: flex;
+    justify-content: center;
+  }
+
+  .main-item_tag {
+    padding-left: 80px;
+  }
+
+  .main-item_second {
+    padding-left: 80px;
+  }
+</style>
+@extends('Layouts.base')
+<!--views/layouts/baseベース--->
+<!----打刻ページ----->
+@section('content')
+<header class="header">
+  <div class="header-ttl">
+    <h1>Atte</h1>
+
+  </div>
+  <nav class="header-nav">
+    <ul class="header-nav_list">
+      <li class="header-nav_item"><a href="/">ホーム</a></li>
+      <li class="header-nav_item"><a href="/attendance">日付一覧</a></li>
+      <li class="header-nav_item"><a href="{{route('logout')}}">ログアウト</a></li>
+    </ul>
+  </nav>
+</header>
+<div class="main">
+  <p class="">{{ Auth::user()->name}}さんお疲れ様です！</p>
+
+
+  <div class="main-item">
+    <!----------勤務開始------------>
+    <div class="main-item_tag">
+      <form action="/workstart" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-start">勤務開始</button>
+        <input type='hidden' id="user_id" name="workstart" value="{{'workstart'}}">
     </div>
-  </x-app-layout>
+    @if(session('start_in'))
+    <div class="alert alert-success">
+      {{session('start_in')}}
+    </div>
+    @endif
+    </form>
 
-</body>
 
-</html>
+    <!----------勤務終了------------>
+    <div class="main-item_tag">
+      <form action="/workend" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-end">勤務終了</button>
+        <input type='hidden' id="user_id" name="workend" value="{{'workend'}}">
+    </div>
+    </form>
+  </div>
+  <!---end.main-iteme---->
+
+
+
+  <div class="main-item">
+    <!----------休憩開始------------>
+    <div class="main-item_second">
+      <form action="/breakstart" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-start">休憩開始</button>
+        <input type='hidden' id="stamp_id" name="breakstart" value="{{'breaksatrt'}}">
+    </div>
+    </form>
+
+
+
+    <!----------休憩終了------------>
+    <div class="main-item_second">
+      <form action="/breakend" method="POST">
+        @csrf
+        <button type="submit" class="btn btn-end">休憩開始</button>
+        <input type='hidden' id="user_id" name="breakend" value="{{'breakend'}}">
+    </div>
+    </form>
+  </div>
+  @endsection
+  <!----end.打刻ページ----->
+
+
+  <!--------------打刻ページ/パーツ----------->

@@ -8,7 +8,17 @@ module.exports = {
     ],
 
     theme: {
-        extend: {
+        //--追加
+       colors: {
+           gray: {
+               200: '#edf2f7',
+           }
+       },
+       //ここまで--
+       fontSize: {
+               xl: ['24px', '32px'],
+           },
+       extend: {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
