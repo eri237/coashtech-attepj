@@ -27,21 +27,21 @@ class JobController extends Controller
      */
     //$oldTimestamp = Job::where('user_id', $user->id)->latest()->first();
     //if ($oldTimestamp) {
-      //$oldTimestampPunchIn = new Carbon($oldTimestamp->workstart);
-      //$oldTimestampDay = $oldTimestampPunchIn->startOfDay();
+    //$oldTimestampPunchIn = new Carbon($oldTimestamp->workstart);
+    //$oldTimestampDay = $oldTimestampPunchIn->startOfDay();
     //} else {
-      $timestamp = Job::create([
-        'user_id' => $user->id,
-        'workstart' => Carbon::now(),
-        'workend' => 0,
-        'day' => Carbon::today(),
-      ]);
+    $timestamp = Job::create([
+      'user_id' => $user->id,
+      'workstart' => Carbon::now(),
+      'day' => Carbon::today(),
+    ]);
+    echo $timestamp;
 
-      return redirect()->back()->with('my_status', '出勤打刻が完了しました');
-    }
+    return redirect()->back()->with('my_status', '出勤打刻が完了しました');
+  }
 
 
-  
+
 
   //退勤アクション
   public function end()

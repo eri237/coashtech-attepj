@@ -22,6 +22,7 @@ class CreateJobsTable extends Migration
             $table->float('breaktime')->nullable();
             $table->float('workTime');
             $table->date('day');
+
         });
     }
 

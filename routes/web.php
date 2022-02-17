@@ -28,8 +28,12 @@ require __DIR__ . '/auth.php';
 Route::get('/logout', [LogoutController::class, 'logout']);
 
 Route::get('/', [JobController::class, 'new'])->middleware('auth');
-Route::post('/', [JobController::class, 'create'])->middleware('auth');
+//Route::post('/', [JobController::class, 'create'])->middleware('auth');
 //出退勤打刻
+// Route::controller(JobController::class)->group(function () {
+//     Route::get('/orders/{id}', 'show');
+//     Route::get('/workstart', 'start');
+// });
 Route::post('/workstart', [JobController::class, 'start']);
 Route::post('/workend', [JobController::class, 'end']);
 //休憩打刻
