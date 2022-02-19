@@ -75,13 +75,14 @@
         @csrf
         <button type="submit" class="btn btn-start">勤務開始</button>
         <input type='hidden' id="user_id" name="workstart" value="{{'workstart'}}">
+      </form>
     </div>
     @if(session('start_in'))
     <div class="alert alert-success">
       {{session('start_in')}}
     </div>
     @endif
-    </form>
+
 
 
     <!----------勤務終了------------>
@@ -90,8 +91,10 @@
         @csrf
         <button type="submit" class="btn btn-end">勤務終了</button>
         <input type='hidden' id="user_id" name="workend" value="{{'workend'}}">
+        　
+      </form>
     </div>
-    </form>
+
   </div>
   <!---end.main-iteme---->
 
@@ -104,8 +107,8 @@
         @csrf
         <button type="submit" class="btn btn-start">休憩開始</button>
         <input type='hidden' id="stamp_id" name="breakstart" value="{{'breaksatrt'}}">
+      </form>
     </div>
-    </form>
 
 
 
@@ -115,8 +118,9 @@
         @csrf
         <button type="submit" class="btn btn-end">休憩開始</button>
         <input type='hidden' id="user_id" name="breakend" value="{{'breakend'}}">
+      </form>
     </div>
-    </form>
+
   </div>
   @endsection
   <!----end.打刻ページ----->

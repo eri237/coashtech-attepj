@@ -32,6 +32,7 @@ Route::get('/', [JobController::class, 'new'])->middleware('auth');
 //出退勤打刻
 // Route::controller(JobController::class)->group(function () {
 //     Route::get('/orders/{id}', 'show');
+
 //     Route::get('/workstart', 'start');
 // });
 Route::post('/workstart', [JobController::class, 'start']);
