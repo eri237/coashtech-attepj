@@ -8,7 +8,7 @@ use App\Models\Rest;
 
 class Job extends Model
 {
-    protected $fillable = ['user_id', 'workstart', 'workend', 'day', 'workTime','breakTime', 'updated_at', 'created_at'];
+    protected $fillable = ['user_id', 'workstart', 'workend', 'day', 'workTime','breaktime', 'updated_at', 'created_at'];
 
     public function user()
     {

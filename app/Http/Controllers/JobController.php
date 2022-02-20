@@ -35,7 +35,7 @@ class JobController extends Controller
       'workstart' => Carbon::now(),
       'day' => Carbon::today(),
     ]);
-    echo $timestamp;
+    //echo $timestamp;
 
     return redirect()->back()->with('my_status', '出勤打刻が完了しました');
   }
@@ -47,7 +47,7 @@ class JobController extends Controller
   public function end()
   {
     $user = Auth::user();
-    $timestamp = Job::where('user_id', $user->id)->latest()->first();
+    $workend = Job::where('user_id', $user->id)->latest()->first();
 
     $now = new Carbon();
     $workstart = new Carbon($workend->workstart);
@@ -55,12 +55,12 @@ class JobController extends Controller
     $breakend = new Carbon($workend->breakend);
     //実労時間(Minute)
     $stayTime = $workstart->diffInMinutes($now);
-    $breakTime = $breakstart->diffInMinutes($breakend);
-    $workingMinute = $stayTime - $breakTime;
+    $breaktime = $breakstart->diffInMinutes($breakend);
+    $workingMinute = $stayTime - $breaktime;
     //15分刻み
     $workingHour = ceil($workingMinute / 15) * 0.25;
 
-    $timestamp->update([
+    $workend->update([
       'workend' => Carbon::now(),
       'workTime' => $workingHour,
     ]);

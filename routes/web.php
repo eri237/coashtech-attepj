@@ -30,15 +30,10 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 Route::get('/', [JobController::class, 'new'])->middleware('auth');
 //Route::post('/', [JobController::class, 'create'])->middleware('auth');
 //出退勤打刻
-// Route::controller(JobController::class)->group(function () {
-//     Route::get('/orders/{id}', 'show');
-
-//     Route::get('/workstart', 'start');
-// });
-Route::post('/workstart', [JobController::class, 'start']);
-Route::post('/workend', [JobController::class, 'end']);
+Route::post('/workstart', [JobController::class, 'start'])->middleware('auth');
+Route::post('/workend', [JobController::class, 'end'])->middleware('auth');
 //休憩打刻
-Route::post('/breakstart', [BreakController::class, 'start']);
-Route::post('/breakend', [BreakController::class, 'end']);
+Route::post('/breakstart', [BreakController::class, 'start'])->middleware('auth');
+Route::post('/breakend', [BreakController::class, 'end'])->middleware('auth');
 
 Route::get('/attendance', [JobController::class, 'index'])->middleware('auth');
