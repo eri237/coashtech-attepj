@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\User;
-
+use App\Models\Rest;
 
 
 class JobController extends Controller
@@ -22,7 +22,7 @@ class JobController extends Controller
     $user = Auth::user();
 
     /**
-     * 打刻は1日一回までにしたい 
+     * 打刻は1日一回までにしたい
      * DB
      */
     //$oldTimestamp = Job::where('user_id', $user->id)->latest()->first();
@@ -49,8 +49,20 @@ class JobController extends Controller
     $user = Auth::user();
     $timestamp = Job::where('user_id', $user->id)->latest()->first();
 
+    $now = new Carbon();
+    $workstart = new Carbon($workend->workstart);
+    $breakstart = new Carbon($workend->breakstart);
+    $breakend = new Carbon($workend->breakend);
+    //実労時間(Minute)
+    $stayTime = $workstart->diffInMinutes($now);
+    $breakTime = $breakstart->diffInMinutes($breakend);
+    $workingMinute = $stayTime - $breakTime;
+    //15分刻み
+    $workingHour = ceil($workingMinute / 15) * 0.25;
+
     $timestamp->update([
-      'workend' => Carbon::now()
+      'workend' => Carbon::now(),
+      'workTime' => $workingHour,
     ]);
     return redirect()->back()->with('my_status', '退勤打刻が完了しました');
   }
