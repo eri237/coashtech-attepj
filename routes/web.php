@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\JobController;
-use App\Http\Controllers\BreakController;
+use App\Http\Controllers\RestController;
 use App\Http\Controllers\LogoutController;
 
 
@@ -33,7 +33,7 @@ Route::get('/', [JobController::class, 'new'])->middleware('auth');
 Route::post('/workstart', [JobController::class, 'start'])->middleware('auth');
 Route::post('/workend', [JobController::class, 'end'])->middleware('auth');
 //休憩打刻
-Route::post('/breakstart', [BreakController::class, 'start'])->middleware('auth');
-Route::post('/breakend', [BreakController::class, 'end'])->middleware('auth');
+Route::post('/breakstart', [RestController::class, 'start'])->middleware('auth');
+Route::post('/breakend', [RestController::class, 'end'])->middleware('auth');
 
 Route::get('/attendance', [JobController::class, 'index'])->middleware('auth');

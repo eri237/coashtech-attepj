@@ -8,11 +8,11 @@ use Carbon\Carbon;
 use App\Models\Job;
 use App\Models\Rest;
 
-class BreakController extends Controller
+class RestController extends Controller
 {
     public function start()
     {
-        $job = Job::get();
+        $job = Job::first();
         $breakstart = Rest::where('job_id', $job->id)->latest()->first();
 
         $breakstart = Rest::create([

@@ -106,7 +106,7 @@
       <form action="/breakstart" method="POST">
         @csrf
         <button type="submit" class="btn btn-start">休憩開始</button>
-        <input type='hidden' id="stamp_id" name="breakstart" value="{{'breaksatrt'}}">
+        <input type='hidden' id="job_id" name="breakstart" value="{{'breaksatrt'}}">
       </form>
     </div>
 
@@ -117,7 +117,7 @@
       <form action="/breakend" method="POST">
         @csrf
         <button type="submit" class="btn btn-end">休憩開始</button>
-        <input type='hidden' id="user_id" name="breakend" value="{{'breakend'}}">
+        <input type='hidden' id="job_id" name="breakend" value="{{'breakend'}}">
       </form>
     </div>
 
