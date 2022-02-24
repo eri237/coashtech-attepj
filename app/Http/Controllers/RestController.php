@@ -18,15 +18,20 @@ class RestController extends Controller
         $breakstart = Rest::create([
             'job_id' => $job->id,
             'breakstart' => Carbon::now(),
-            'breakend' => 0
 
         ]);
-        return redirect()->back()->with(['rest_in', '休憩開始']);
+        return redirect()->back()->with(['breakstart', '休憩開始']);
     }
 
     //休憩完了アクション
     public function end()
     {
+        $job = Job::first();
+        $breakend = Rest::where('job_id', $job->id)->latest()->first();
+        $breakend->update([
+            'breakend' => Carbon::now(),
+        ]);
+        return redirect()->back()->with('breakend', '退勤打刻が完了しました');
     }
     //
 }

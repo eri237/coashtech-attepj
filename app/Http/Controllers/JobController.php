@@ -35,7 +35,6 @@ class JobController extends Controller
       'workstart' => Carbon::now(),
       'day' => Carbon::today(),
     ]);
-    //echo $timestamp;
 
     return redirect()->back()->with('my_status', '出勤打刻が完了しました');
   }
@@ -63,6 +62,7 @@ class JobController extends Controller
     $workend->update([
       'workend' => Carbon::now(),
       'workTime' => $workingHour,
+      'breaktime' => $breaktime,
     ]);
     return redirect()->back()->with('my_status', '退勤打刻が完了しました');
   }
@@ -70,7 +70,15 @@ class JobController extends Controller
 
   public function index()
   {
-    $items = Job::all();
-    return "redirect('/attendance')";
+    if (Auth::check()) {
+      $today = Carbon::today();
+      $day = intval($today->day);
+      $format = $today->format('Y-m-d');
+      //当日の勤怠を取得
+      $items = Job::all();
+      return view('index', ['itmes' => $items, 'day' => $format]);
+    } else {
+      return redirect('/attendance');
+    }
   }
 }

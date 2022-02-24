@@ -116,7 +116,7 @@
     <div class="main-item_second">
       <form action="/breakend" method="POST">
         @csrf
-        <button type="submit" class="btn btn-end">休憩開始</button>
+        <button type="submit" class="btn btn-end">休憩終了</button>
         <input type='hidden' id="job_id" name="breakend" value="{{'breakend'}}">
       </form>
     </div>
