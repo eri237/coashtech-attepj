@@ -98,7 +98,7 @@
       <tr>
         <td>{{$itme->user_id}}</td>
         <td>{{$itme->workstart->format('H:i:s')}}</td>
-        <td>{{$itme->workend->format('H:i:s')}}</td>
+        <td>{{$itme->workend}}</td>
         <td>{{$itme->breaktime}}</td>
         <td>{{$itme->workTime}}</td>
       </tr>
