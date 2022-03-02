@@ -46,7 +46,7 @@ class JobController extends Controller
   public function end()
   {
     $user = Auth::user();
-    $workend = Job::where('user_id', $user->name)->latest()->first();
+    $workend = Job::where('user_id', $user->id)->latest()->first();
 
     $now = new Carbon();
     $workstart = new Carbon($workend->workstart);
