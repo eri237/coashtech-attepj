@@ -59,31 +59,11 @@
 </header>
 <div class="container">
   <div class="search">
-    <form action="/time/daily" method="post">
+    <form action="/" method="post">
       @csrf
-      <select name="year" class="year">
-        @for($i=2019; $i <= 2030; $i++) <option>{{$i}}</option>
-          @endfor
-      </select>
-
-      <p class="year">年</p>
-
-      <select name="month" class="month">
-        @for($i=1; $i <= 12; $i++) <option>{{$i}}</option>
-          @endfor
-      </select>
-
-      <p class="month">月</p>
-
-      <select name="day" class="day">
-        @for($i=1; $i <= 31; $i++) <option>{{$i}}</option>
-          @endfor
-      </select>
-
-      <p class="day">日</p>
-      <input type="submit" value="選択">
+      <input type="hidden" name="back" value="">
     </form>
-    <a class="return" href="/time"><button>戻る</button></a>
+    <p class="date">{{$day}}</p>
   </div>
   <div class="attendance">
     <table>

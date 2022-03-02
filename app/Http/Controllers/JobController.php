@@ -32,8 +32,8 @@ class JobController extends Controller
     //} else {
     $timestamp = Job::create([
       'user_id' => $user->id,
-      'workstart' => Carbon::now(),
-      'day' => Carbon::today(),
+      'workstart' => Carbon::now()->format('H:i:s'),
+      'day' => Carbon::now()->format('Y-m-d'),
     ]);
 
     return redirect()->back()->with('my_status', '出勤打刻が完了しました');
@@ -46,7 +46,7 @@ class JobController extends Controller
   public function end()
   {
     $user = Auth::user();
-    $workend = Job::where('user_id', $user->id)->latest()->first();
+    $workend = Job::where('user_id', $user->name)->latest()->first();
 
     $now = new Carbon();
     $workstart = new Carbon($workend->workstart);
@@ -60,7 +60,7 @@ class JobController extends Controller
     $workingHour = ceil($workingMinute / 15) * 0.25;
 
     $workend->update([
-      'workend' => Carbon::now(),
+      'workend' => Carbon::now()->format('H:i:s'),
       'workTime' => $workingHour,
       'breaktime' => $breaktime,
     ]);
@@ -71,12 +71,11 @@ class JobController extends Controller
   public function index()
   {
     if (Auth::check()) {
-      $today = Carbon::today();
-      $day = intval($today->day);
-      $format = $today->format('Y-m-d');
+      $today = Carbon::today()->format('Y-m-d');
+      //$day = intval($today->day);
       //当日の勤怠を取得
-      $items = Job::all();
-      return view('index', ['itmes' => $items, 'day' => $format]);
+      $items = Job::whereDate('day', $today)->latest()->paginate(5);
+      return view('index', ['itmes' => $items, 'day' => $today]);
     } else {
       return redirect('/attendance');
     }
