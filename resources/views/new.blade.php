@@ -24,27 +24,54 @@
   }
 
   .main {
-    background: #EEEEEE;
-    height: 500px;
-    font-size: 20px;
+    height: 80vh;
+    background-color: #eee;
+    padding-top: 30px;
+    padding-left: calc((40% - 40px)/2);
+    padding-right: calc((40% - 40px)/2);
   }
 
   .main-item {
     display: flex;
-    justify-content: center;
+    margin-bottom: 40px;
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .main-item_second {
-    display: flex;
-    justify-content: center;
+  .time-add {
+    height: 150px;
+    width: 47%;
   }
 
-  .main-item_tag {
-    padding-left: 80px;
+  .btn-start,
+  .btn-end {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    line-height: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
   }
 
-  .main-item_second {
-    padding-left: 80px;
+  .none-button {
+    display: block;
+    height: 150px;
+    width: 47%;
+    background-color: white;
+    text-align: center;
+    line-height: 150px;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    pointer-events: none;
+    opacity: 0.1;
+  }
+
+  button:active {
+    background-color: gray;
   }
 </style>
 @extends('Layouts.base')
@@ -66,60 +93,45 @@
 </header>
 <div class="main">
   <p class="">{{ Auth::user()->name}}さんお疲れ様です！</p>
-
+  @if(session('message'))
+  <div class="session">
+    {{session('message')}}
+  </div>
+  @endif
 
   <div class="main-item">
     <!----------勤務開始------------>
-    <div class="main-item_tag">
-      <form action="/workstart" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-start">勤務開始</button>
-        <input type='hidden' id="user_id" name="workstart" value="{{'workstart'}}">
-      </form>
-    </div>
-    @if(session('start_in'))
-    <div class="alert alert-success">
-      {{session('start_in')}}
-    </div>
-    @endif
-
-
+    <form action="/workstart" class="time-add" method="POST">
+      @csrf
+      <button type="submit" class="btn-start">勤務開始</button>
+      <!-- <input type='hidden' id="user_id" name="workstart" value="{{'workstart'}}"> -->
+    </form>
 
     <!----------勤務終了------------>
-    <div class="main-item_tag">
-      <form action="/workend" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-end">勤務終了</button>
-        <input type='hidden' id="user_id" name="workend" value="{{'workend'}}">
-        　
-      </form>
-    </div>
+    <form action="/workend" class="time-add" method="POST">
+      @csrf
+      <button type="submit" class="btn-end">勤務終了</button>
+      <!-- <input type='hidden' id="user_id" name="workend" value="{{'workend'}}"> --> 　
+    </form>
 
   </div>
-  <!---end.main-iteme---->
+  <!---end.main-item---->
 
 
 
   <div class="main-item">
     <!----------休憩開始------------>
-    <div class="main-item_second">
-      <form action="/breakstart" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-start">休憩開始</button>
-        <input type='hidden' id="job_id" name="breakstart" value="{{'breaksatrt'}}">
-      </form>
-    </div>
-
-
-
+    <form action="/breakstart" class="time-add" method="POST">
+      @csrf
+      <button type="submit" class="btn-start">休憩開始</button>
+      <!-- <input type='hidden' id="job_id" name="breakstart" value="{{'breaksatrt'}}"> -->
+    </form>
     <!----------休憩終了------------>
-    <div class="main-item_second">
-      <form action="/breakend" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-end">休憩終了</button>
-        <input type='hidden' id="job_id" name="breakend" value="{{'breakend'}}">
-      </form>
-    </div>
+    <form action="/breakend" class="time-add" method="POST">
+      @csrf
+      <button type="submit" class="btn-end">休憩終了</button>
+      <!-- <input type='hidden' id="job_id" name="breakend" value="{{'breakend'}}"> -->
+    </form>
 
   </div>
   @endsection

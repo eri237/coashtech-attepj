@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Rest;
 
 class Job extends Model
 {
-    protected $fillable = ['user_id', 'workstart', 'workend', 'day', 'workTime', 'breaktime', 'updated_at', 'created_at'];
+    use HasFactory;
+    protected $table = 'jobs';
+
+    protected $fillable = [
+        'user_id', 'workstart', 'workend', 'day'
+    ];
 
     public function user()
     {
@@ -19,10 +25,5 @@ class Job extends Model
     {
         $this->hasMany(Rest::class);
     }
-    protected $dates = ['workstart', 'workend'];
-
-    public function scopeGetDayAttendance($query, $day)
-    {
-        return $query->where('day', $day);
-    }
+    
 }

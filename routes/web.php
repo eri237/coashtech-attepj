@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RestController;
 use App\Http\Controllers\LogoutController;
+use Illuminate\Http\Response;
 
 
 /*
@@ -37,3 +38,4 @@ Route::post('/breakstart', [RestController::class, 'start'])->middleware('auth')
 Route::post('/breakend', [RestController::class, 'end'])->middleware('auth');
 
 Route::get('/attendance', [JobController::class, 'index'])->middleware('auth');
+Route::post('/attendance', [JobController::class, 'index'])->name('index');

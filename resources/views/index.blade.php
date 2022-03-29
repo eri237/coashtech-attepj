@@ -39,6 +39,12 @@
     text-align: center;
     padding: 10px 0;
   }
+
+  svg.w-5.h-5 {
+    /*paginateメソッドの矢印の大きさ調整のために追加*/
+    width: 30px;
+    height: 30px;
+  }
 </style>
 @extends('Layouts.base')
 <!--views/layouts/baseベース--->
@@ -59,13 +65,19 @@
 </header>
 <div class="container">
   <div class="search">
-    <form action="/" method="post">
+    <form action="/attendance" method="post">
       @csrf
-      <input type="hidden" name="back" value="">
+      <p class="date">{{ date('Y-m-d')}}</p>
+      <label for="date" class="mr-2 ">
+        日付を選択して下さい
+      </label>
+      <input type="date" name="date" id="date">
+      <button type="submit" class="search" value="">検索</button>
+
     </form>
-    <p class="date">{{$day}}</p>
+
   </div>
-  <div class="attendance">
+  <div class=" attendance">
     <table>
       <tr>
         <th>名前</th>
@@ -74,16 +86,16 @@
         <th>休憩時間</th>
         <th>勤務時間</th>
       </tr>
-      @foreach ($itmes as $itme)
+      @foreach ($users as $user)
       <tr>
-        <td>{{$itme->user_id}}</td>
-        <td>{{$itme->workstart->format('H:i:s')}}</td>
-        <td>{{$itme->workend}}</td>
-        <td>{{$itme->breaktime}}</td>
-        <td>{{$itme->workTime}}</td>
+        <td>{{$user->user->name}}</td>
+        <td>{{$user->workstart}}</td>
+        <td>{{$user->workend}}</td>
+        <td>{{$hours}}:{{$minutes}}:{{$seconds}}</td>
+        <td>{{ gmdate("H:i:s",(strtotime($user->workend)-strtotime($user->workstart))) }}</td>
       </tr>
       @endforeach
     </table>
+    {{ $items->links() }}
   </div>
-
 </div>
