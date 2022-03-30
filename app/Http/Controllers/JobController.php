@@ -59,6 +59,7 @@ class JobController extends Controller
         ->where('day', $date)
         ->get();
 
+        
         $items = Job::orderBy('updated_at', 'asc')->Paginate(5);
         
         return view('index', compact('users', 'date','day', 'minutes', 'seconds','hours','items'));

@@ -86,11 +86,11 @@
         <th>休憩時間</th>
         <th>勤務時間</th>
       </tr>
-      @foreach ($users as $user)
+      @foreach ($items as $item)
       <tr>
-        <td>{{$user->user->name}}</td>
-        <td>{{$user->workstart}}</td>
-        <td>{{$user->workend}}</td>
+        <td>{{$items->user->name}}</td>
+        <td>{{$items->workstart}}</td>
+        <td>{{$items->workend}}</td>
         <td>{{$hours}}:{{$minutes}}:{{$seconds}}</td>
         <td>{{ gmdate("H:i:s",(strtotime($user->workend)-strtotime($user->workstart))) }}</td>
       </tr>
